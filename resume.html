@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>陈启鸣 | 简历</title>
+    <style>
+      :root {
+        --cream: #f5efea;
+        --deep-blue: #122e8a;
+        --ink-blue: #113056;
+        --water-blue: #91cfd5;
+        --red: #e72d48;
+        --ink: #102033;
+        --muted: rgba(16, 32, 51, 0.72);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background:
+          linear-gradient(120deg, rgba(245, 239, 234, 0.96), rgba(241, 221, 223, 0.82), rgba(145, 207, 213, 0.44)),
+          var(--cream);
+        font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+        letter-spacing: 0;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .page {
+        width: min(940px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 42px 0 64px;
+      }
+
+      .toolbar {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+
+      .toolbar a,
+      .toolbar button {
+        border: 1px solid rgba(18, 46, 138, 0.18);
+        border-radius: 999px;
+        background: rgba(245, 239, 234, 0.72);
+        color: var(--ink-blue);
+        cursor: pointer;
+        font: inherit;
+        font-weight: 800;
+        padding: 10px 16px;
+        text-decoration: none;
+      }
+
+      .sheet {
+        padding: clamp(24px, 5vw, 54px);
+        border: 1px solid rgba(18, 46, 138, 0.12);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.68);
+        box-shadow: 0 28px 90px rgba(17, 48, 86, 0.14);
+      }
+
+      .header {
+        display: grid;
+        grid-template-columns: 112px 1fr;
+        gap: 24px;
+        align-items: center;
+        padding-bottom: 24px;
+        border-bottom: 2px solid var(--ink-blue);
+      }
+
+      .avatar {
+        width: 112px;
+        aspect-ratio: 1;
+        border-radius: 8px;
+        object-fit: cover;
+        object-position: 50% 20%;
+      }
+
+      h1 {
+        margin: 0 0 8px;
+        color: var(--deep-blue);
+        font-size: clamp(2.2rem, 7vw, 4rem);
+        line-height: 1;
+      }
+
+      .subtitle {
+        margin: 0 0 16px;
+        color: var(--ink-blue);
+        font-size: 1.1rem;
+        font-weight: 800;
+      }
+
+      .contact {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 18px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      section {
+        padding-top: 28px;
+      }
+
+      h2 {
+        margin: 0 0 16px;
+        color: var(--deep-blue);
+        font-size: 1.45rem;
+      }
+
+      h3 {
+        margin: 0 0 6px;
+        color: var(--ink-blue);
+        font-size: 1.08rem;
+      }
+
+      .meta {
+        margin: 0 0 12px;
+        color: var(--red);
+        font-size: 0.9rem;
+        font-weight: 800;
+      }
+
+      p,
+      li {
+        color: var(--muted);
+        line-height: 1.75;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 1.15rem;
+      }
+
+      li + li,
+      .item + .item {
+        margin-top: 10px;
+      }
+
+      .item {
+        padding: 18px 0;
+        border-top: 1px solid rgba(18, 46, 138, 0.12);
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .tags span {
+        padding: 7px 10px;
+        border-radius: 999px;
+        color: var(--ink-blue);
+        background: rgba(145, 207, 213, 0.32);
+        font-weight: 800;
+      }
+
+      @media print {
+        body {
+          background: #fff;
+        }
+
+        .page {
+          width: 100%;
+          padding: 0;
+        }
+
+        .toolbar {
+          display: none;
+        }
+
+        .sheet {
+          box-shadow: none;
+          border: 0;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .header {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="toolbar">
+        <a href="./index.html">返回首页</a>
+        <button onclick="window.print()">打印 / 保存为 PDF</button>
+      </div>
+
+      <article class="sheet">
+        <header class="header">
+          <img class="avatar" src="./CQM.jpg" alt="陈启鸣肖像照" />
+          <div>
+            <h1>陈启鸣</h1>
+            <p class="subtitle">建筑环境与能源应用工程 · 数据分析 · AI 产品实践</p>
+            <div class="contact">
+              <span>在读</span>
+              <span>2006.05</span>
+              <a href="mailto:ssyqc3@nottingham.edu.cn">ssyqc3@nottingham.edu.cn</a>
+              <a href="tel:+8615215277075">+86 152 1527 7075</a>
+            </div>
+          </div>
+        </header>
+
+        <section>
+          <h2>教育经历</h2>
+          <div class="item">
+            <h3>宁波诺丁汉大学（QS 前 100） | 建筑环境与能源应用工程</h3>
+            <p class="meta">本科 | 2024.08 - 2028.02</p>
+            <ul>
+              <li>主修流体力学、工程设计、建筑电气工程等核心课程，构建扎实的专业知识体系。</li>
+              <li>在校期间积极参与技术研究项目，初步掌握数据分析方法，对工程设计有深入理解。</li>
+              <li>专业前 20%，获得优秀学生奖学金。</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2>工作经验</h2>
+          <div class="item">
+            <h3>广东省环境科学研究院 | 数据分析实习生</h3>
+            <p class="meta">2025.07 - 2025.10</p>
+            <ul>
+              <li>参与省级重点区域环境监测项目，负责报告数据核算、图表编制与校对。</li>
+              <li>熟练运用 Excel、Tableau、Python、SQL、Power BI 完成数据整理、统计与初步分析。</li>
+              <li>协助构建并测试基于 LLM 的工具、智能标注和工作流自动化方案。</li>
+            </ul>
+          </div>
+          <div class="item">
+            <h3>宜家中国 | Digital Hub Portfolio & Deployment Team Intern</h3>
+            <p class="meta">2025.03 - 2025.07</p>
+            <ul>
+              <li>深度参与宜家中国数字化产品蓝图规划与维护，协助管理项目生命周期及资源分配。</li>
+              <li>负责数字化产品在各业务部门及线下门店的上线部署，监控进度并推动协同。</li>
+              <li>与瑞典总部及宜家中国总部团队跨文化协作，并通过数据分析评估项目实施效果。</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2>项目经历</h2>
+          <div class="item">
+            <h3>IELTS-Mate | 基于大语言模型驱动的多模态个性化雅思备考引擎</h3>
+            <p class="meta">独立完成 | 2026.01 - 至今</p>
+            <ul>
+              <li>构建前后端分离架构，前端集成 Web Speech API，后端采用 FastAPI 与 SQLite。</li>
+              <li>集成 Gemini 系列大模型，通过 Prompt Engineering 实现语义级单词解析和多模态内容生成。</li>
+              <li>解决 gRPC 协议在本地代理环境下的 Header 冲突问题，切换 REST 传输协议保障通信稳定。</li>
+            </ul>
+            <p><a href="https://github.com/R0xy-152/IELTS-Mate-AI">https://github.com/R0xy-152/IELTS-Mate-AI</a></p>
+          </div>
+          <div class="item">
+            <h3>低碳住宅原型设计与热模拟项目</h3>
+            <p class="meta">产品经理 | 2025.09 - 2025.11</p>
+            <ul>
+              <li>使用 Xmind、Visio 拆解低碳住宅功能模块与用户体验路径。</li>
+              <li>基于 Axure、墨刀、Mockplus 完成高保真原型设计。</li>
+              <li>针对 EnergyPlus 仿真数据构建数据库，编写 SQL 查询并量化窗墙比对能效表现的影响。</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2>技能工具</h2>
+          <div class="tags">
+            <span>Excel</span>
+            <span>Tableau</span>
+            <span>Python</span>
+            <span>SQL</span>
+            <span>Power BI</span>
+            <span>FastAPI</span>
+            <span>SQLite</span>
+            <span>Web Speech API</span>
+            <span>Prompt Engineering</span>
+            <span>EnergyPlus</span>
+            <span>Axure</span>
+            <span>墨刀</span>
+            <span>Mockplus</span>
+          </div>
+        </section>
+      </article>
+    </main>
+  </body>
+</html>
