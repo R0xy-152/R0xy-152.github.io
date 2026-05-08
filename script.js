@@ -11,11 +11,12 @@ const revealObserver = new IntersectionObserver(
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("is-visible");
-        revealObserver.unobserve(entry.target);
+      } else if (!entry.target.classList.contains("topbar")) {
+        entry.target.classList.remove("is-visible");
       }
     });
   },
-  { threshold: 0.16, rootMargin: "0px 0px -8% 0px" }
+  { threshold: 0.18, rootMargin: "0px 0px -6% 0px" }
 );
 
 revealItems.forEach((item) => revealObserver.observe(item));

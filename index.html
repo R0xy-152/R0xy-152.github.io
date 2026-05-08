@@ -200,27 +200,63 @@
             <p class="eyebrow">Capabilities</p>
             <h2 id="skills-title">能力矩阵</h2>
           </div>
-          <div class="skill-grid">
-            <article data-reveal>
-              <span>Data</span>
-              <h3>数据分析与智能标注</h3>
-              <p>Python、SQL、Tableau、Power BI，覆盖数据清洗、统计分析、可视化、标注规范和评估闭环。</p>
-            </article>
-            <article data-reveal>
-              <span>AI</span>
-              <h3>AI Agent 产品设计</h3>
-              <p>具备 AI-Native 应用规划、Prompt 调优、Benchmark 构建、多模态交互和效果评测经验。</p>
-            </article>
-            <article data-reveal>
-              <span>English</span>
-              <h3>产品推广与跨文化沟通</h3>
-              <p>有跨国团队协作和数字化产品部署经验，能够收集用户反馈、协调资源并推动产品体验迭代。</p>
-            </article>
-            <article data-reveal>
-              <span>Logic</span>
-              <h3>问题解决与结果导向</h3>
-              <p>善于拆解复杂问题、归纳总结、建立评估标准，并以清晰节奏推动方案从分析走向交付。</p>
-            </article>
+          <div class="radar-panel" data-reveal>
+            <figure class="radar-chart" aria-label="六边形能力雷达图">
+              <svg viewBox="0 0 520 520" role="img" aria-labelledby="radar-title radar-desc">
+                <title id="radar-title">能力矩阵六边形雷达图</title>
+                <desc id="radar-desc">展示数据分析、AI Agent、英语表达、跨文化协作、学习能力和问题解决六项能力。</desc>
+                <g class="radar-grid">
+                  <polygon points="260,70 424,165 424,355 260,450 96,355 96,165" />
+                  <polygon points="260,108 391,184 391,336 260,412 129,336 129,184" />
+                  <polygon points="260,146 358,203 358,317 260,374 162,317 162,203" />
+                  <polygon points="260,184 325,222 325,298 260,336 195,298 195,222" />
+                  <line x1="260" y1="260" x2="260" y2="70" />
+                  <line x1="260" y1="260" x2="424" y2="165" />
+                  <line x1="260" y1="260" x2="424" y2="355" />
+                  <line x1="260" y1="260" x2="260" y2="450" />
+                  <line x1="260" y1="260" x2="96" y2="355" />
+                  <line x1="260" y1="260" x2="96" y2="165" />
+                </g>
+                <polygon
+                  class="radar-area"
+                  points="260,82 405,176 391,336 260,400 124,339 112,174"
+                />
+                <polyline
+                  class="radar-line"
+                  points="260,82 405,176 391,336 260,400 124,339 112,174 260,82"
+                />
+                <g class="radar-dots">
+                  <circle cx="260" cy="82" r="6" />
+                  <circle cx="405" cy="176" r="6" />
+                  <circle cx="391" cy="336" r="6" />
+                  <circle cx="260" cy="400" r="6" />
+                  <circle cx="124" cy="339" r="6" />
+                  <circle cx="112" cy="174" r="6" />
+                </g>
+                <g class="radar-labels">
+                  <text x="260" y="42" text-anchor="middle">数据分析</text>
+                  <text x="468" y="158" text-anchor="middle">AI Agent</text>
+                  <text x="466" y="382" text-anchor="middle">英语表达</text>
+                  <text x="260" y="494" text-anchor="middle">跨文化协作</text>
+                  <text x="54" y="382" text-anchor="middle">学习能力</text>
+                  <text x="54" y="158" text-anchor="middle">问题解决</text>
+                </g>
+              </svg>
+            </figure>
+            <div class="radar-notes">
+              <article>
+                <span>01</span>
+                <p>数据分析、可视化、智能标注与评估闭环。</p>
+              </article>
+              <article>
+                <span>02</span>
+                <p>AI Agent 产品规划、Prompt 调优与 Benchmark 构建。</p>
+              </article>
+              <article>
+                <span>03</span>
+                <p>英语表达、跨文化沟通、问题拆解与结果导向交付。</p>
+              </article>
+            </div>
           </div>
         </section>
 
