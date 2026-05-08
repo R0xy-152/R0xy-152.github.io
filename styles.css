@@ -5,10 +5,10 @@
   --water-blue: #91cfd5;
   --soft-rose: #f1dddf;
   --red: #e72d48;
-  --ink: #102033;
-  --muted: rgba(16, 32, 51, 0.68);
-  --line: rgba(18, 46, 138, 0.16);
-  --shadow: 0 28px 90px rgba(17, 48, 86, 0.18);
+  --ink: #122e8a;
+  --muted: #122e8a;
+  --line: rgba(18, 46, 138, 0.18);
+  --shadow: 0 24px 80px rgba(18, 46, 138, 0.12);
   --font-cn: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-display: "Avenir Next", "Inter", "PingFang SC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
@@ -24,17 +24,15 @@ html {
 
 body {
   margin: 0;
-  color: var(--ink);
-  background:
-    linear-gradient(115deg, rgba(245, 239, 234, 0.96) 0%, rgba(241, 221, 223, 0.82) 47%, rgba(145, 207, 213, 0.58) 100%),
-    var(--cream);
+  color: var(--deep-blue);
+  background: var(--cream);
   font-family: var(--font-cn);
   letter-spacing: 0;
   min-width: 320px;
 }
 
 body::selection {
-  color: var(--cream);
+  color: var(--soft-rose);
   background: var(--red);
 }
 
@@ -67,7 +65,7 @@ img {
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  opacity: 0.5;
+  opacity: 0.16;
 }
 
 .topbar,
@@ -92,9 +90,9 @@ main {
   justify-content: space-between;
   gap: 20px;
   padding: 10px 12px;
-  border: 1px solid rgba(245, 239, 234, 0.52);
-  background: rgba(245, 239, 234, 0.7);
-  box-shadow: 0 18px 60px rgba(17, 48, 86, 0.12);
+  border: 1px solid rgba(18, 46, 138, 0.16);
+  background: rgba(245, 239, 234, 0.84);
+  box-shadow: 0 18px 54px rgba(18, 46, 138, 0.1);
   backdrop-filter: blur(24px);
   border-radius: 999px;
 }
@@ -133,7 +131,7 @@ main {
 
 .nav a {
   padding: 9px 14px;
-  color: rgba(17, 48, 86, 0.78);
+  color: var(--deep-blue);
   border-radius: 999px;
   font-size: 0.93rem;
   font-weight: 700;
@@ -156,7 +154,7 @@ main {
 
 .eyebrow {
   margin: 0 0 18px;
-  color: var(--red);
+  color: var(--deep-blue);
   font-family: var(--font-display);
   font-size: clamp(0.76rem, 1vw, 0.86rem);
   font-weight: 800;
@@ -194,7 +192,7 @@ h1 span {
 .hero-intro {
   max-width: 720px;
   margin-bottom: 34px;
-  color: var(--muted);
+  color: var(--deep-blue);
   font-size: clamp(1rem, 1.6vw, 1.22rem);
   line-height: 1.9;
 }
@@ -226,9 +224,9 @@ h1 span {
 }
 
 .btn.secondary {
-  color: var(--ink-blue);
-  background: rgba(245, 239, 234, 0.52);
-  border-color: rgba(18, 46, 138, 0.24);
+  color: var(--deep-blue);
+  background: var(--cream);
+  border-color: var(--deep-blue);
 }
 
 .btn:hover {
@@ -248,9 +246,7 @@ h1 span {
   content: "";
   position: absolute;
   inset: 9% -3% 11% 12%;
-  background:
-    linear-gradient(135deg, var(--water-blue), rgba(145, 207, 213, 0) 54%),
-    var(--ink-blue);
+  background: var(--deep-blue);
   clip-path: polygon(9% 0, 100% 8%, 88% 100%, 0 91%);
   opacity: 0.96;
 }
@@ -262,7 +258,7 @@ h1 span {
   bottom: 8%;
   width: 42%;
   height: 18%;
-  background: var(--red);
+  background: var(--cream);
   clip-path: polygon(0 18%, 100% 0, 82% 82%, 8% 100%);
   mix-blend-mode: multiply;
 }
@@ -273,7 +269,7 @@ h1 span {
   width: min(410px, 78vw);
   aspect-ratio: 4 / 5;
   overflow: hidden;
-  border: 10px solid rgba(245, 239, 234, 0.68);
+  border: 10px solid var(--cream);
   border-radius: 8px;
   box-shadow: var(--shadow);
   transform: rotate(1.4deg);
@@ -300,7 +296,7 @@ h1 span {
 
 .signal-strip span {
   padding: 9px 12px;
-  color: var(--cream);
+  color: var(--soft-rose);
   background: var(--red);
   border-radius: 999px;
   font-family: var(--font-display);
@@ -311,7 +307,7 @@ h1 span {
 
 .profile-band {
   padding: 96px 0;
-  background: var(--ink-blue);
+  background: var(--deep-blue);
   color: var(--cream);
 }
 
@@ -335,9 +331,35 @@ h1 span {
   color: var(--cream);
 }
 
+.profile-band .eyebrow {
+  color: var(--cream);
+}
+
+.education-section .section-heading h2,
+.timeline-section .section-heading h2,
+.education-section .eyebrow,
+.timeline-section .eyebrow {
+  color: var(--red);
+}
+
+.project-band .section-heading.inverse h2,
+.project-band .eyebrow {
+  color: var(--water-blue);
+}
+
+.skill-section .section-heading h2,
+.skill-section .eyebrow {
+  color: var(--ink-blue);
+}
+
+.contact-band .section-heading.inverse h2,
+.contact-band .eyebrow {
+  color: var(--soft-rose);
+}
+
 .profile-copy p {
   margin-bottom: 0;
-  color: rgba(245, 239, 234, 0.78);
+  color: var(--cream);
   font-size: clamp(1rem, 1.45vw, 1.2rem);
   line-height: 1.92;
 }
@@ -348,21 +370,21 @@ h1 span {
   grid-template-columns: repeat(3, 1fr);
   gap: 1px;
   overflow: hidden;
-  border: 1px solid rgba(145, 207, 213, 0.32);
+  border: 1px solid rgba(245, 239, 234, 0.28);
   border-radius: 8px;
-  background: rgba(145, 207, 213, 0.32);
+  background: rgba(245, 239, 234, 0.28);
 }
 
 .metric-grid article {
   min-height: 170px;
   padding: 24px;
-  background: rgba(245, 239, 234, 0.06);
+  background: var(--deep-blue);
 }
 
 .metric-grid span {
   display: block;
   margin-bottom: 28px;
-  color: var(--water-blue);
+  color: var(--cream);
   font-family: var(--font-display);
   font-size: clamp(2rem, 4vw, 3.6rem);
   font-weight: 800;
@@ -376,14 +398,27 @@ h1 span {
 }
 
 .metric-grid p {
-  color: rgba(245, 239, 234, 0.66);
+  color: var(--cream);
   line-height: 1.7;
 }
 
 .education-section,
-.timeline-section,
-.skill-section {
+.timeline-section {
   padding: 110px 0;
+}
+
+.education-section,
+.timeline-section {
+  color: var(--red);
+  background: var(--soft-rose);
+  border-radius: 8px;
+}
+
+.skill-section {
+  width: 100%;
+  padding: 110px max(20px, calc((100% - 1160px) / 2));
+  color: var(--ink-blue);
+  background: var(--water-blue);
 }
 
 .education-panel {
@@ -392,15 +427,15 @@ h1 span {
   gap: 34px;
   margin-top: 42px;
   padding: clamp(24px, 4vw, 46px);
-  border: 1px solid var(--line);
+  border: 1px solid rgba(231, 45, 72, 0.22);
   border-radius: 8px;
-  background: rgba(245, 239, 234, 0.68);
-  box-shadow: 0 20px 70px rgba(17, 48, 86, 0.1);
+  background: var(--soft-rose);
+  box-shadow: none;
 }
 
 .period {
   margin-bottom: 12px;
-  color: var(--red);
+  color: inherit;
   font-family: var(--font-display);
   font-size: 0.84rem;
   font-weight: 800;
@@ -412,7 +447,7 @@ h1 span {
 .project-card h3,
 .skill-grid h3 {
   margin-bottom: 10px;
-  color: var(--ink-blue);
+  color: inherit;
   font-size: clamp(1.24rem, 2vw, 1.72rem);
   line-height: 1.24;
 }
@@ -422,7 +457,7 @@ h1 span {
 .timeline-content li,
 .project-card p,
 .skill-grid p {
-  color: var(--muted);
+  color: inherit;
   line-height: 1.78;
 }
 
@@ -447,7 +482,7 @@ li + li {
   bottom: 12px;
   left: 21px;
   width: 2px;
-  background: linear-gradient(var(--deep-blue), var(--water-blue), var(--red));
+  background: var(--red);
 }
 
 .timeline-item {
@@ -466,31 +501,29 @@ li + li {
   z-index: 1;
   width: 44px;
   height: 44px;
-  border: 11px solid var(--cream);
+  border: 11px solid var(--soft-rose);
   border-radius: 50%;
-  background: var(--water-blue);
-  box-shadow: 0 0 0 1px var(--line), 0 16px 40px rgba(17, 48, 86, 0.12);
+  background: var(--red);
+  box-shadow: none;
 }
 
 .timeline-content {
   padding: clamp(22px, 4vw, 38px);
-  border: 1px solid var(--line);
+  border: 1px solid rgba(231, 45, 72, 0.22);
   border-radius: 8px;
-  background: rgba(245, 239, 234, 0.72);
+  background: var(--soft-rose);
 }
 
 .role {
   margin-bottom: 22px;
-  color: var(--deep-blue);
+  color: var(--red);
   font-weight: 800;
 }
 
 .project-band {
   padding: 104px 0;
-  color: var(--cream);
-  background:
-    linear-gradient(130deg, rgba(18, 46, 138, 0.96), rgba(17, 48, 86, 0.98) 52%, rgba(231, 45, 72, 0.88)),
-    var(--deep-blue);
+  color: var(--water-blue);
+  background: var(--ink-blue);
 }
 
 .project-grid {
@@ -504,18 +537,14 @@ li + li {
   position: relative;
   min-height: 420px;
   padding: clamp(24px, 4vw, 42px);
-  border: 1px solid rgba(245, 239, 234, 0.22);
+  border: 1px solid rgba(145, 207, 213, 0.28);
   border-radius: 8px;
-  background: rgba(245, 239, 234, 0.09);
+  background: var(--ink-blue);
   overflow: hidden;
 }
 
 .project-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(150deg, rgba(145, 207, 213, 0.18), transparent 52%);
-  pointer-events: none;
+  content: none;
 }
 
 .project-card > * {
@@ -524,7 +553,7 @@ li + li {
 }
 
 .project-card.featured {
-  background: rgba(245, 239, 234, 0.15);
+  background: var(--ink-blue);
 }
 
 .project-index {
@@ -537,12 +566,12 @@ li + li {
 }
 
 .project-card h3 {
-  color: var(--cream);
+  color: var(--water-blue);
 }
 
 .project-subtitle {
   margin-bottom: 24px;
-  color: rgba(245, 239, 234, 0.84);
+  color: var(--water-blue);
   font-weight: 800;
 }
 
@@ -553,7 +582,7 @@ li + li {
 
 .project-points p,
 .project-card .period {
-  color: rgba(245, 239, 234, 0.72);
+  color: var(--water-blue);
 }
 
 .text-link {
@@ -570,21 +599,21 @@ li + li {
   gap: 1px;
   margin-top: 46px;
   overflow: hidden;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(17, 48, 86, 0.24);
   border-radius: 8px;
-  background: var(--line);
+  background: rgba(17, 48, 86, 0.24);
 }
 
 .skill-grid article {
   min-height: 300px;
   padding: 28px;
-  background: rgba(245, 239, 234, 0.68);
+  background: var(--water-blue);
 }
 
 .skill-grid span {
   display: inline-flex;
   margin-bottom: 46px;
-  color: var(--red);
+  color: var(--ink-blue);
   font-family: var(--font-display);
   font-size: 0.82rem;
   font-weight: 800;
@@ -593,10 +622,8 @@ li + li {
 
 .contact-band {
   padding: 104px 0 120px;
-  color: var(--cream);
-  background:
-    linear-gradient(105deg, rgba(17, 48, 86, 0.98), rgba(18, 46, 138, 0.94) 58%, rgba(145, 207, 213, 0.72)),
-    var(--ink-blue);
+  color: var(--soft-rose);
+  background: var(--red);
 }
 
 .contact-grid {
@@ -610,16 +637,16 @@ li + li {
   display: grid;
   gap: 10px;
   padding: clamp(22px, 4vw, 36px);
-  border: 1px solid rgba(245, 239, 234, 0.22);
+  border: 1px solid rgba(241, 221, 223, 0.36);
   border-radius: 8px;
-  background: rgba(245, 239, 234, 0.08);
+  background: var(--red);
 }
 
 .contact-panel a {
   min-width: 0;
   padding: 17px 0;
-  color: rgba(245, 239, 234, 0.88);
-  border-bottom: 1px solid rgba(245, 239, 234, 0.18);
+  color: var(--soft-rose);
+  border-bottom: 1px solid rgba(241, 221, 223, 0.32);
   font-family: var(--font-display);
   font-weight: 800;
   overflow-wrap: anywhere;
@@ -631,7 +658,7 @@ li + li {
 }
 
 .contact-panel a:hover {
-  color: var(--water-blue);
+  color: var(--soft-rose);
   transform: translateX(5px);
 }
 
