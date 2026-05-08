@@ -112,3 +112,98 @@ if (!prefersReducedMotion) {
 window.addEventListener("beforeunload", () => {
   window.cancelAnimationFrame(animationFrame);
 });
+
+const splitTransition = document.querySelector("[data-video-transition]");
+const splitLeftPanel = document.querySelector('[data-split-panel="left"]');
+const splitRightPanel = document.querySelector('[data-split-panel="right"]');
+const splitVideos = [...document.querySelectorAll(".split-video")];
+const gameWall = document.querySelector("[data-game-wall]");
+const coverColumns = [...document.querySelectorAll("[data-cover-column]")];
+let scrollFrame = 0;
+let hasTriedVideoPlayback = false;
+
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+
+function ensureSplitVideoPlayback() {
+  if (hasTriedVideoPlayback || prefersReducedMotion || splitVideos.length === 0) {
+    return;
+  }
+
+  hasTriedVideoPlayback = true;
+  splitVideos.forEach((video) => {
+    video.muted = true;
+    video.play().catch(() => {
+      hasTriedVideoPlayback = false;
+    });
+  });
+}
+
+function syncSplitVideos() {
+  const leadVideo = splitVideos[0];
+
+  if (!leadVideo || leadVideo.readyState < 2) {
+    return;
+  }
+
+  splitVideos.slice(1).forEach((video) => {
+    if (video.readyState >= 2 && Math.abs(video.currentTime - leadVideo.currentTime) > 0.08) {
+      video.currentTime = leadVideo.currentTime;
+    }
+  });
+}
+
+function updateScrollDrivenMotion() {
+  scrollFrame = 0;
+  const viewportHeight = window.innerHeight || 1;
+
+  if (splitTransition && splitLeftPanel && splitRightPanel) {
+    const transitionRect = splitTransition.getBoundingClientRect();
+    const transitionTravel = Math.max(splitTransition.offsetHeight - viewportHeight, 1);
+    const transitionProgress = clamp(-transitionRect.top / transitionTravel, 0, 1);
+    const joinProgress = clamp(transitionProgress / 0.58, 0, 1);
+    const easedProgress = 1 - Math.pow(1 - joinProgress, 3);
+    const leftOffset = -100 + easedProgress * 100;
+    const rightOffset = 100 - easedProgress * 100;
+
+    splitTransition.style.setProperty("--join-progress", easedProgress.toFixed(4));
+    splitLeftPanel.style.transform = `translate3d(${leftOffset.toFixed(3)}%, 0, 0)`;
+    splitRightPanel.style.transform = `translate3d(${rightOffset.toFixed(3)}%, 0, 0)`;
+
+    if (transitionProgress > 0.02 && transitionProgress < 0.99) {
+      ensureSplitVideoPlayback();
+    }
+  }
+
+  if (gameWall && coverColumns.length > 0) {
+    const wallRect = gameWall.getBoundingClientRect();
+    const wallProgress = clamp((viewportHeight - wallRect.top) / (viewportHeight + wallRect.height), 0, 1);
+    const travel = Math.min(260, viewportHeight * 0.24);
+    const offset = (wallProgress - 0.5) * travel;
+
+    coverColumns.forEach((column, index) => {
+      const direction = index % 2 === 0 ? 1 : -1;
+      column.style.transform = `translate3d(0, ${(offset * direction).toFixed(2)}px, 0)`;
+    });
+  }
+}
+
+function requestScrollDrivenMotion() {
+  if (prefersReducedMotion || scrollFrame) {
+    return;
+  }
+
+  scrollFrame = window.requestAnimationFrame(updateScrollDrivenMotion);
+}
+
+if (!prefersReducedMotion) {
+  splitVideos.forEach((video) => {
+    video.addEventListener("loadedmetadata", syncSplitVideos, { once: true });
+  });
+
+  window.addEventListener("scroll", requestScrollDrivenMotion, { passive: true });
+  window.addEventListener("resize", requestScrollDrivenMotion);
+  window.setInterval(syncSplitVideos, 1200);
+  requestScrollDrivenMotion();
+}

@@ -55,7 +55,7 @@ img {
 
 .site-shell {
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .flow-field {
@@ -81,6 +81,7 @@ main {
 
 .topbar {
   position: fixed;
+  z-index: 20;
   top: 18px;
   left: 50%;
   width: min(1160px, calc(100% - 32px));
@@ -620,6 +621,130 @@ li + li {
   text-transform: uppercase;
 }
 
+.video-transition {
+  --join-progress: 0;
+  position: relative;
+  height: 340svh;
+  background: var(--ink-blue);
+}
+
+.video-pin {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--ink-blue);
+  isolation: isolate;
+}
+
+.video-pin::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(17, 48, 86, 0.34), transparent 22%, transparent 78%, rgba(17, 48, 86, 0.34)),
+    linear-gradient(180deg, rgba(17, 48, 86, 0.22), transparent 28%, transparent 72%, rgba(17, 48, 86, 0.26));
+  opacity: calc(0.34 + var(--join-progress) * 0.28);
+}
+
+.split-panel {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  width: 50vw;
+  height: 100%;
+  overflow: hidden;
+  background: var(--ink-blue);
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.split-panel-left {
+  left: 0;
+  transform: translate3d(-100%, 0, 0);
+}
+
+.split-panel-right {
+  right: 0;
+  transform: translate3d(100%, 0, 0);
+}
+
+.split-video {
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(1.04) contrast(1.04);
+}
+
+.split-video-left {
+  left: 0;
+}
+
+.split-video-right {
+  right: 0;
+}
+
+.game-wall-section {
+  position: relative;
+  min-height: 118svh;
+  padding: 110px 0 130px;
+  overflow: hidden;
+  color: var(--deep-blue);
+  background: var(--cream);
+}
+
+.game-wall-section::before {
+  content: "";
+  position: absolute;
+  inset: auto -10vw 0;
+  height: 38%;
+  background: var(--soft-rose);
+}
+
+.game-wall-heading {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 18px;
+}
+
+.game-wall {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(150px, 1fr));
+  gap: clamp(14px, 2.2vw, 26px);
+  width: min(1420px, 136vw);
+  margin: -16px auto 0;
+  transform: rotate(-15deg) translate3d(-2vw, 0, 0);
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+.cover-column {
+  display: grid;
+  gap: clamp(14px, 2.2vw, 26px);
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.cover-column:nth-child(even) {
+  margin-top: clamp(56px, 10vw, 150px);
+}
+
+.cover-column img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 22px 54px rgba(17, 48, 86, 0.2);
+  transform: translateZ(0);
+}
+
 .contact-band {
   padding: 104px 0 120px;
   color: var(--soft-rose);
@@ -704,6 +829,12 @@ li + li {
   .skill-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .game-wall {
+    grid-template-columns: repeat(5, minmax(132px, 1fr));
+    width: 154vw;
+    margin-left: -27vw;
+  }
 }
 
 @media (max-width: 720px) {
@@ -783,6 +914,27 @@ li + li {
     padding: 82px 0;
   }
 
+  .video-transition {
+    height: 280svh;
+  }
+
+  .game-wall-section {
+    min-height: 104svh;
+    padding: 82px 0 92px;
+  }
+
+  .game-wall {
+    grid-template-columns: repeat(5, minmax(104px, 1fr));
+    gap: 12px;
+    width: 182vw;
+    margin-top: 20px;
+    margin-left: -48vw;
+  }
+
+  .cover-column {
+    gap: 12px;
+  }
+
   .metric-grid,
   .skill-grid {
     grid-template-columns: 1fr;
@@ -820,4 +972,19 @@ li + li {
   .flow-field {
     display: none;
   }
+
+  .video-transition {
+    height: auto;
+  }
+
+  .video-pin {
+    position: relative;
+    height: 100svh;
+  }
+
+  .split-panel-left,
+  .split-panel-right {
+    transform: translate3d(0, 0, 0);
+  }
+
 }
