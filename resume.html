@@ -196,6 +196,7 @@
     <main class="page">
       <div class="toolbar">
         <a href="./index.html">返回首页</a>
+        <a href="./resume.pdf">打开 PDF 原版</a>
         <button onclick="window.print()">打印 / 保存为 PDF</button>
       </div>
 
@@ -204,10 +205,12 @@
           <img class="avatar" src="./CQM.jpg" alt="陈启鸣肖像照" />
           <div>
             <h1>陈启鸣</h1>
-            <p class="subtitle">数据分析 · AI 工具效率 · 英语与跨文化沟通</p>
+            <p class="subtitle">建筑环境与能源应用工程 · 数据分析 · AI 产品实践</p>
             <div class="contact">
               <span>在读</span>
+              <span>2006.05</span>
               <a href="mailto:ssyqc3@nottingham.edu.cn">ssyqc3@nottingham.edu.cn</a>
+              <a href="tel:+8615215277075">+86 152 1527 7075</a>
             </div>
           </div>
         </header>
@@ -215,12 +218,10 @@
         <section>
           <h2>教育经历</h2>
           <div class="item">
-            <h3>宁波诺丁汉大学（QS 前 100） | 本科在读</h3>
+            <h3>宁波诺丁汉大学（QS 前 100） | 建筑环境与能源应用工程</h3>
             <p class="meta">本科 | 2024.08 - 2028.02</p>
             <ul>
-              <li>专业学习培养了扎实的数理基础、工程逻辑和系统性分析能力。</li>
-              <li>专业前 20%，获得优秀学生奖学金，体现较强学习能力与自我驱动力。</li>
-              <li>持续关注数据分析、AI 应用、数字化工具和新技术对效率与创造方式的改变。</li>
+              <li>专业前 10%，获得优秀学生奖学金，展现出扎实的学业基础和良好的学习能力。</li>
             </ul>
           </div>
         </section>
@@ -231,18 +232,17 @@
             <h3>广东省环境科学研究院 | 数据分析实习生</h3>
             <p class="meta">2025.07 - 2025.10</p>
             <ul>
-              <li>参与省级重点区域环境监测项目，负责报告数据核算、图表编制与校对。</li>
-              <li>熟练运用 Excel、Tableau、Python、SQL、Power BI 完成数据整理、统计分析与可视化支持。</li>
-              <li>协助测试基于 LLM 的工具、智能标注和工作流自动化方案，探索 AI 在实际业务流程中的效率提升。</li>
+              <li><strong>大模型应用与策略评估：</strong>协助构建并测试应用型 AI 解决方案，助力基于 LLM 工具的提示词优化与效果评测，持续提升模型输出质量与业务匹配度。</li>
+              <li><strong>数据驱动与智能标注：</strong>熟练运用 Python、SQL、Tableau 等工具进行海量数据清洗与统计分析；参与制定智能数据标注规范，构建自动化的数据工作流，为模型迭代与环境质量评估提供数据支撑。</li>
             </ul>
           </div>
           <div class="item">
             <h3>宜家中国 | Digital Hub Portfolio & Deployment Team Intern</h3>
             <p class="meta">2025.03 - 2025.07</p>
             <ul>
-              <li>深度参与宜家中国数字化产品蓝图规划与项目组合管理，协助跟进项目生命周期、资源分配和业务价值产出。</li>
-              <li>负责数字化产品在各业务部门及线下门店的上线部署，监控进度并推动协同。</li>
-              <li>与瑞典总部及中国团队进行英文与跨文化沟通，通过数据分析协助评估项目实施效果。</li>
+              <li><strong>产品规划与生命周期管理：</strong>深度参与宜家中国数字化产品（中后台应用）的蓝图规划与需求分析，协助管理产品全生命周期与资源分配，确保高质量的业务价值交付。</li>
+              <li><strong>跨部门协同与产品推广：</strong>负责主导数字化产品在各业务部门及线下门店的上线部署与推广运营，深度沟通并收集前台用户反馈，高效协调跨部门资源解决落地阻力。</li>
+              <li><strong>数据分析与效果迭代：</strong>建立基于数据分析的评估闭环，与瑞典及中国总部跨国团队协作，持续跟踪产品使用情况，通过数据洞察驱动产品体验的优化与迭代。</li>
             </ul>
           </div>
         </section>
@@ -250,23 +250,31 @@
         <section>
           <h2>项目经历</h2>
           <div class="item">
-            <h3>IELTS-Mate | AI-Native 个性化英语学习工具</h3>
-            <p class="meta">独立完成 | 2026.01 - 至今</p>
+            <h3>IELTS-Mate | 基于大语言模型驱动的多模态个性化雅思备考引擎</h3>
+            <p class="meta">产品经理 | 2026.01 - 至今</p>
             <ul>
-              <li>独立完成从产品构思、功能拆解、前后端实现到问题调试的完整流程，体现较强学习能力和解决问题能力。</li>
-              <li>前端集成 Web Speech API，后端采用 FastAPI 与 SQLite，构建可用的学习交互闭环。</li>
-              <li>通过 Prompt Engineering 调用 Gemini 系列大模型，实现语义解析、场景生成和个性化学习反馈。</li>
-              <li>解决本地代理环境下 gRPC Header 冲突问题，切换 REST 传输协议保障通信稳定。</li>
+              <li><strong>AI Agent 产品设计与从 0 到 1 落地：</strong>独立负责该 AI-Native 应用的产品规划与全栈开发。针对英语口语练习缺乏真实互动的痛点，设计极简 UI 并接入 Web Speech API，打造高感知的实时语音交互产品体验。</li>
+              <li><strong>大模型策略与 Prompt 调优：</strong>深度集成 Gemini 系列大模型，独立负责核心提示词的撰写与精细化迭代；建立动态场景化语义理解机制，实现精准的 AI 内容解析与反馈。</li>
+              <li><strong>多模态内容运营与效果评估：</strong>结合 AI 生成的场景关键词，驱动多模态内容的实时渲染；在生产环境中持续追踪 API 通信质量与用户交互效果，保障系统稳定性和产品体验。</li>
+              <li><strong>评测集 Benchmark 构建与模型调优：</strong>针对雅思口语高频考点，自主构建包含数十个核心场景的测试数据集；建立包含语义准确度、场景相关性与响应延迟的多维度评测基准，驱动 Prompt 精细化迭代。</li>
             </ul>
             <p><a href="https://github.com/R0xy-152/IELTS-Mate-AI">https://github.com/R0xy-152/IELTS-Mate-AI</a></p>
           </div>
           <div class="item">
-            <h3>AI 工具与多智能体交互实践</h3>
-            <p class="meta">持续实践</p>
+            <h3>CineAnchor | 基于 3DGS 锚点的 AI 视频生成渲染管线</h3>
+            <p class="meta">独立完成 | 2026.04 - 至今</p>
             <ul>
-              <li>熟练使用多类 AI 工具进行信息检索、内容整理、代码辅助、方案生成和任务拆解。</li>
-              <li>掌握多智能体交互思路，能够通过角色分工、任务规划和反馈迭代提升复杂任务处理效率。</li>
-              <li>关注新技术如何改变学习、协作和创造流程，并能将工具能力转化为可执行的方法论。</li>
+              <li><strong>自研核心架构：</strong>设计并实现一套解耦的视频生成控制协议，通过引入 3D 空间代理解决生成式视频在运镜和透视上的随机性难题。</li>
+              <li><strong>多模态特征映射：</strong>利用 PyTorch 构建底层张量处理链路，将相机矩阵实时映射为深度约束流，实现对扩散模型潜空间的确定性引导。</li>
+              <li><strong>项目价值：</strong>将文本描述转化为导演视角的精确构图，实现稳定的运镜一致性，为建筑漫游与创意叙事提供高保真的 Previz 方案。</li>
+            </ul>
+          </div>
+          <div class="item">
+            <h3>低碳住宅原型设计与热模拟项目</h3>
+            <p class="meta">项目经理 | 2025.09 - 2025.11</p>
+            <ul>
+              <li><strong>目标优化与方案迭代：</strong>基于模拟计算结果，持续调整与优化设计参数，最终推导出符合特定指标的最优解决方案。</li>
+              <li><strong>项目统筹与团队协作：</strong>在项目中进行任务拆解与团队分工，把控项目进度，撰写高质量的分析与可行性评估报告。</li>
             </ul>
           </div>
         </section>
@@ -279,15 +287,16 @@
             <span>Python</span>
             <span>SQL</span>
             <span>Power BI</span>
+            <span>PyTorch</span>
             <span>FastAPI</span>
             <span>SQLite</span>
             <span>Web Speech API</span>
             <span>Prompt Engineering</span>
-            <span>多智能体交互</span>
+            <span>Benchmark 构建</span>
+            <span>AI Agent 产品设计</span>
             <span>跨文化沟通</span>
-            <span>英文协作</span>
+            <span>产品部署</span>
             <span>问题拆解</span>
-            <span>归纳总结</span>
           </div>
         </section>
       </article>
