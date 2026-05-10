@@ -120,8 +120,13 @@ const splitRightPanel = document.querySelector('[data-split-panel="right"]');
 const splitVideos = [...document.querySelectorAll(".split-video")];
 const gameWall = document.querySelector("[data-game-wall]");
 const coverColumns = [...document.querySelectorAll("[data-cover-column]")];
+const motionOpening = document.querySelector("[data-motion-opening]");
+const motionCards = [...document.querySelectorAll("[data-motion-card]")];
+const motionVideos = motionCards.map((card) => card.querySelector("video")).filter(Boolean);
+const motionDots = [...document.querySelectorAll("[data-motion-dot]")];
 let scrollFrame = 0;
 let hasTriedVideoPlayback = false;
+let hasTriedMotionPlayback = false;
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
@@ -155,9 +160,67 @@ function syncSplitVideos() {
   });
 }
 
+function ensureMotionVideoPlayback() {
+  if (hasTriedMotionPlayback || prefersReducedMotion || motionVideos.length === 0) {
+    return;
+  }
+
+  hasTriedMotionPlayback = true;
+  motionVideos.forEach((video) => {
+    video.muted = true;
+    video.play().catch(() => {
+      hasTriedMotionPlayback = false;
+    });
+  });
+}
+
+function updateMotionOpening(viewportHeight) {
+  if (!motionOpening || motionCards.length === 0) {
+    return;
+  }
+
+  const rect = motionOpening.getBoundingClientRect();
+  const travel = Math.max(motionOpening.offsetHeight - viewportHeight, 1);
+  const progress = clamp(-rect.top / travel, 0, 1);
+  const cardCount = motionCards.length;
+  const activeIndex = Math.min(cardCount - 1, Math.floor(progress * cardCount));
+
+  motionOpening.style.setProperty("--motion-progress", progress.toFixed(4));
+  motionOpening.style.setProperty("--motion-active", activeIndex);
+
+  motionCards.forEach((card, index) => {
+    const position = index - progress * (cardCount - 1);
+    const isPast = position < -0.08;
+    const distance = Math.abs(position);
+    const y = isPast ? -82 - Math.min(100, distance * 80) : Math.min(76, position * 58);
+    const x = isPast ? -22 : Math.max(-14, position * 12);
+    const rotate = isPast ? -7 - Math.min(10, distance * 4) : position * -3.8;
+    const scale = isPast ? 0.92 : 1 - Math.min(0.1, Math.max(0, position) * 0.055);
+    const opacity = isPast ? Math.max(0, 1 + position * 1.6) : Math.max(0.48, 1 - Math.max(0, position) * 0.22);
+    const zIndex = Math.round(100 - Math.max(0, position) * 8 - (isPast ? distance * 18 : 0));
+
+    card.style.setProperty("--card-x", `${x.toFixed(2)}px`);
+    card.style.setProperty("--card-y", `${y.toFixed(2)}px`);
+    card.style.setProperty("--card-rotate", `${rotate.toFixed(3)}deg`);
+    card.style.setProperty("--card-scale", scale.toFixed(4));
+    card.style.setProperty("--card-opacity", opacity.toFixed(4));
+    card.style.zIndex = zIndex;
+  });
+
+  motionDots.forEach((dot, index) => {
+    dot.classList.toggle("is-active", index === activeIndex);
+  });
+
+  if (progress > 0.01 && progress < 0.99) {
+    ensureMotionVideoPlayback();
+  }
+}
+
 function updateScrollDrivenMotion() {
   scrollFrame = 0;
   const viewportHeight = window.innerHeight || 1;
+
+  updateMotionOpening(viewportHeight);
 
   if (splitTransition && splitLeftPanel && splitRightPanel) {
     const transitionRect = splitTransition.getBoundingClientRect();

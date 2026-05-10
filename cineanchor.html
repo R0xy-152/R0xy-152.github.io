@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="CineAnchor 项目案例：用 3D Gaussian Splatting 作为空间锚点，为 ControlNet-Depth 视频生成提供稳定几何约束。"
+    />
+    <title>CineAnchor | 陈启鸣项目案例</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23122E8A'/%3E%3Cpath d='M15 42V22h14v5h-8v10h8v5H15Zm18 0V22h6l5 8 5-8h6v20h-6V32l-4 6h-2l-4-6v10h-6Z' fill='%23F5EFEA'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="site-shell cineanchor-page">
+      <canvas class="flow-field" id="flowField" aria-hidden="true"></canvas>
+
+      <header class="topbar" data-reveal>
+        <a class="brand" href="./index.html#top" aria-label="返回陈启鸣个人网站首页">
+          <span class="brand-mark">CQM</span>
+          <span class="brand-name">陈启鸣</span>
+        </a>
+        <nav class="nav" aria-label="案例导航">
+          <a href="./index.html#projects">项目</a>
+          <a href="#pipeline">管线</a>
+          <a href="#progress">进展</a>
+          <a href="#links">链接</a>
+        </nav>
+      </header>
+
+      <main id="top">
+        <section class="motion-language-opening" aria-labelledby="motion-opening-title" data-motion-opening>
+          <div class="motion-opening-pin">
+            <div class="section-wrap motion-opening-grid">
+              <div class="motion-opening-copy" data-reveal>
+                <p class="eyebrow">Cinematic Language</p>
+                <h1 id="motion-opening-title">
+                  让 AI 视频也拥有导演级镜头控制。
+                </h1>
+                <p>
+                  电影里的推拉、变焦和视角压缩，会直接改变观众对空间、情绪和紧张感的感知。CineAnchor 想把这种镜头控制能力，带进 AI 视频生成。
+                </p>
+                <strong>不是只生成好看的画面，而是让画面按用户设计的空间和镜头运动稳定发生。</strong>
+              </div>
+
+              <div class="motion-video-stage" data-reveal>
+                <div class="motion-video-stack" aria-label="电影镜头语言参考视频">
+                  <article class="motion-video-card" data-motion-card style="--card-index: 0">
+                    <video src="./cineanchor-motion-joker.mp4" muted autoplay loop playsinline preload="metadata"></video>
+                    <div class="motion-card-label">
+                      <span>01</span>
+                      <strong>Perspective Pressure</strong>
+                    </div>
+                  </article>
+                  <article class="motion-video-card" data-motion-card style="--card-index: 1">
+                    <video src="./cineanchor-motion-chunk.mp4" muted autoplay loop playsinline preload="metadata"></video>
+                    <div class="motion-card-label">
+                      <span>02</span>
+                      <strong>Camera Drift</strong>
+                    </div>
+                  </article>
+                  <article class="motion-video-card" data-motion-card style="--card-index: 2">
+                    <video src="./cineanchor-motion-gongfu.mp4" muted autoplay loop playsinline preload="metadata"></video>
+                    <div class="motion-card-label">
+                      <span>03</span>
+                      <strong>Spatial Rhythm</strong>
+                    </div>
+                  </article>
+                </div>
+                <div class="motion-progress" aria-hidden="true">
+                  <span data-motion-dot class="is-active"></span>
+                  <span data-motion-dot></span>
+                  <span data-motion-dot></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="case-hero section-wrap" aria-labelledby="case-title">
+          <div class="case-hero-copy">
+            <p class="eyebrow" data-reveal>Controllable AI Video System</p>
+            <h1 id="case-title" data-reveal>
+              CineAnchor
+              <span>用 3D 场景锚定 AI 视频，让镜头运动、透视和空间关系更稳定。</span>
+            </h1>
+            <p class="hero-intro" data-reveal>
+              底层通过 3DGS 深度图、相机轨迹和 ControlNet-Depth，把导演意图转成模型能遵守的几何约束。
+              当前已完成取景器、API、模拟深度链路和 GPU 验证流程，正在推进真实 3DGS 到 AI 视频输出的闭环。
+            </p>
+            <div class="hero-actions" data-reveal>
+              <a class="btn primary magnetic" href="#pipeline">查看管线</a>
+              <a class="btn secondary magnetic" href="https://github.com/R0xy-152/CineAnchor">GitHub</a>
+            </div>
+          </div>
+
+          <figure class="case-media" data-reveal>
+            <div class="depth-frame">
+              <img src="./cineanchor-depth-preview.png" alt="CineAnchor 真实 3DGS 深度图预览" />
+            </div>
+            <figcaption>真实 3DGS 渲染链路输出的深度图预览，作为当前 MVP 的空间约束验证素材。</figcaption>
+          </figure>
+        </section>
+
+        <section class="case-problem" aria-labelledby="problem-title">
+          <div class="section-wrap case-two-column">
+            <div class="section-heading inverse" data-reveal>
+              <p class="eyebrow">Problem</p>
+              <h2 id="problem-title">AI 视频现在最大的问题不是不会画，而是很难按人的镜头设计稳定地画。</h2>
+            </div>
+            <div class="case-copy" data-reveal>
+              <p>
+                文本 prompt 能描述氛围，却很难精确规定镜头怎么推、人物和场景如何保持位置关系。CineAnchor 把 3D 场景作为“导演取景器”：
+                先让用户设计空间和运镜，再把这些结构信息交给扩散模型，让生成结果更接近可控创作，而不是反复抽卡。
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="case-pipeline section-wrap" id="pipeline" aria-labelledby="pipeline-title">
+          <div class="section-heading" data-reveal>
+            <p class="eyebrow">Pipeline</p>
+            <h2 id="pipeline-title">从 3D 场景到视频帧的约束链路</h2>
+          </div>
+          <div class="pipeline-strip" data-reveal>
+            <article>
+              <span>01</span>
+              <strong>3DGS Scene</strong>
+              <p>用户先拥有一个可复用 AI 场景，后续镜头和内容都围绕这个空间展开。</p>
+            </article>
+            <article>
+              <span>02</span>
+              <strong>Depth Maps</strong>
+              <p>把镜头运动变成稳定空间约束，锁定视角、透视和物体相对关系。</p>
+            </article>
+            <article>
+              <span>03</span>
+              <strong>ControlNet-Depth</strong>
+              <p>让模型生成时尊重空间结构，在保留风格想象力的同时减少漂移。</p>
+            </article>
+            <article>
+              <span>04</span>
+              <strong>Video Frames</strong>
+              <p>为可控短片、游戏社区内容和预演动画输出画面，并预留时序一致性接口。</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="case-progress" id="progress" aria-labelledby="progress-title">
+          <div class="section-wrap">
+            <div class="section-heading inverse" data-reveal>
+              <p class="eyebrow">Current Progress</p>
+              <h2 id="progress-title">MVP 已搭起，真实 GPU 闭环正在验证。</h2>
+            </div>
+            <div class="progress-grid">
+              <article data-reveal>
+                <span>Done</span>
+                <h3>可操作取景器</h3>
+                <p>前端已经能承载相机控制、轨迹录制和深度预览，让项目不只是后端脚本，而是一个可体验的创作工具。</p>
+              </article>
+              <article data-reveal>
+                <span>Done</span>
+                <h3>深度约束链路</h3>
+                <p>完成从相机参数到深度图的 pipeline，能把用户设计的镜头转成 AI 生成可读取的结构输入。</p>
+              </article>
+              <article data-reveal>
+                <span>Validating</span>
+                <h3>真实 GPU 闭环</h3>
+                <p>Windows NVIDIA GPU 环境用于 gsplat 渲染验证，目标是把真实 3DGS 场景稳定接入生成流程。</p>
+              </article>
+              <article data-reveal>
+                <span>Next</span>
+                <h3>从 Demo 到产品</h3>
+                <p>下一步把 ControlNet-Depth、时序一致性和发布流程串起来，让它从技术验证走向可展示的创作系统。</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="case-role section-wrap" aria-labelledby="role-title">
+          <div class="section-heading" data-reveal>
+            <p class="eyebrow">Technical Role</p>
+            <h2 id="role-title">我在这个项目里的工作</h2>
+          </div>
+          <div class="role-list" data-reveal>
+            <article>
+              <strong>产品拆解</strong>
+              <p>把“可控 AI 视频”拆成用户能理解的流程：先搭场景，再设计镜头，最后生成不同风格的视频版本。</p>
+            </article>
+            <article>
+              <strong>工程实现</strong>
+              <p>使用 FastAPI、PyTorch、Three.js 和 gsplat 组织前后端管线，把产品概念落成可运行的 MVP。</p>
+            </article>
+            <article>
+              <strong>AI Workflow</strong>
+              <p>建立从模拟测试到真实 GPU 验证的迭代方式，先保证链路可观察、可替换、可复现，再逐步提高生成质量。</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="case-future" aria-labelledby="future-title">
+          <div class="section-wrap">
+            <div class="section-heading inverse" data-reveal>
+              <p class="eyebrow">Future Vision</p>
+              <h2 id="future-title">未来它可以变成什么？</h2>
+            </div>
+            <div class="future-grid">
+              <article data-reveal>
+                <span>01</span>
+                <h3>AI 场景 UGC</h3>
+                <p>用户创建自己的 AI 场景，发布到游戏社区，其他人可以沿用场景、镜头轨迹和风格设定进行二创。</p>
+              </article>
+              <article data-reveal>
+                <span>02</span>
+                <h3>导演级 AI 分镜工具</h3>
+                <p>创作者先在 3D 空间里设计镜头，再生成写实、动画、赛博朋克等不同风格的视频版本。</p>
+              </article>
+              <article data-reveal>
+                <span>03</span>
+                <h3>游戏/动画 Previz</h3>
+                <p>独立游戏和动画短片团队可以快速验证运镜、叙事节奏和场景可读性，降低早期试错成本。</p>
+              </article>
+            </div>
+            <p class="future-closing" data-reveal>
+              CineAnchor 的长期价值，不是做另一个视频生成按钮，而是把 AI 视频从“抽卡”推向“可设计、可复用、可发布”的创作系统。
+            </p>
+          </div>
+        </section>
+
+        <section class="case-links" id="links" aria-labelledby="links-title">
+          <div class="section-wrap contact-grid">
+            <div class="section-heading inverse" data-reveal>
+              <p class="eyebrow">Links</p>
+              <h2 id="links-title">查看代码，或回到完整项目列表。</h2>
+            </div>
+            <div class="contact-panel" data-reveal>
+              <a href="https://github.com/R0xy-152/CineAnchor">GitHub: CineAnchor</a>
+              <a href="./index.html#projects">返回首页项目区</a>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
