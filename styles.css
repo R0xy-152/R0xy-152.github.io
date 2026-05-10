@@ -1651,57 +1651,7 @@ li + li {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    transition-duration: 1ms !important;
-    animation-duration: 1ms !important;
-    animation-iteration-count: 1 !important;
-  }
-
   .flow-field {
     display: none;
-  }
-
-  .motion-language-opening {
-    min-height: auto;
-  }
-
-  .motion-opening-pin {
-    position: relative;
-    min-height: auto;
-  }
-
-  .motion-video-card {
-    position: absolute;
-    opacity: 0;
-    transform: none !important;
-  }
-
-  .motion-video-card:first-child {
-    opacity: 1;
-  }
-
-  .motion-progress {
-    display: none;
-  }
-
-  .video-transition {
-    height: auto;
-  }
-
-  .video-pin {
-    position: relative;
-    height: 100svh;
-  }
-
-  .split-panel-left,
-  .split-panel-right {
-    transform: translate3d(0, 0, 0);
-  }
-
-  .transition-caption {
-    opacity: 0;
   }
 }

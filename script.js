@@ -39,6 +39,7 @@ magneticItems.forEach((item) => {
 const canvas = document.getElementById("flowField");
 const context = canvas.getContext("2d");
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const allowBackgroundFlow = !prefersReducedMotion;
 let width = 0;
 let height = 0;
 let ratio = 1;
@@ -106,7 +107,7 @@ function drawFlow(time = 0) {
 resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
 
-if (!prefersReducedMotion) {
+if (allowBackgroundFlow) {
   animationFrame = window.requestAnimationFrame(drawFlow);
 }
 
@@ -133,7 +134,7 @@ function clamp(value, min, max) {
 }
 
 function ensureSplitVideoPlayback() {
-  if (hasTriedVideoPlayback || prefersReducedMotion || splitVideos.length === 0) {
+  if (hasTriedVideoPlayback || splitVideos.length === 0) {
     return;
   }
 
@@ -161,7 +162,7 @@ function syncSplitVideos() {
 }
 
 function ensureMotionVideoPlayback() {
-  if (hasTriedMotionPlayback || prefersReducedMotion || motionVideos.length === 0) {
+  if (hasTriedMotionPlayback || motionVideos.length === 0) {
     return;
   }
 
@@ -254,20 +255,18 @@ function updateScrollDrivenMotion() {
 }
 
 function requestScrollDrivenMotion() {
-  if (prefersReducedMotion || scrollFrame) {
+  if (scrollFrame) {
     return;
   }
 
   scrollFrame = window.requestAnimationFrame(updateScrollDrivenMotion);
 }
 
-if (!prefersReducedMotion) {
-  splitVideos.forEach((video) => {
-    video.addEventListener("loadedmetadata", syncSplitVideos, { once: true });
-  });
+splitVideos.forEach((video) => {
+  video.addEventListener("loadedmetadata", syncSplitVideos, { once: true });
+});
 
-  window.addEventListener("scroll", requestScrollDrivenMotion, { passive: true });
-  window.addEventListener("resize", requestScrollDrivenMotion);
-  window.setInterval(syncSplitVideos, 1200);
-  requestScrollDrivenMotion();
-}
+window.addEventListener("scroll", requestScrollDrivenMotion, { passive: true });
+window.addEventListener("resize", requestScrollDrivenMotion);
+window.setInterval(syncSplitVideos, 1200);
+requestScrollDrivenMotion();
