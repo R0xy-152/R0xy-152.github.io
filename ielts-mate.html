@@ -12,7 +12,7 @@
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23122E8A'/%3E%3Cpath d='M15 42V22h14v5h-8v10h8v5H15Zm18 0V22h6l5 8 5-8h6v20h-6V32l-4 6h-2l-4-6v10h-6Z' fill='%23F5EFEA'/%3E%3C/svg%3E"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260510-edgefix" />
+    <link rel="stylesheet" href="./styles.css?v=20260512-glass" />
     <style>
       .case-hero {
         min-height: 100svh;
@@ -249,6 +249,12 @@
   </head>
   <body>
     <div class="site-shell">
+      <svg class="liquid-glass-filter" aria-hidden="true" focusable="false">
+        <filter id="liquidGlass">
+          <feTurbulence type="fractalNoise" baseFrequency="0.012 0.032" numOctaves="2" seed="7" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="7" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+      </svg>
       <canvas class="flow-field" id="flowField" aria-hidden="true"></canvas>
 
       <header class="topbar" data-reveal>
@@ -370,6 +376,6 @@
       </main>
     </div>
 
-    <script src="./script.js?v=20260510-edgefix"></script>
+    <script src="./script.js?v=20260512-final"></script>
   </body>
 </html>
