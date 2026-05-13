@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="CineAnchor 项目案例：用 3D Gaussian Splatting 作为空间锚点，为 ControlNet-Depth 视频生成提供稳定几何约束。"
+      content="CineAnchor 项目案例：从 AI 视频创作者需求出发，用 3D Gaussian Splatting、镜头轨迹和深度约束提升视频生成的空间可控性。"
     />
     <title>CineAnchor | 陈启鸣项目案例</title>
     <link
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23122E8A'/%3E%3Cpath d='M15 42V22h14v5h-8v10h8v5H15Zm18 0V22h6l5 8 5-8h6v20h-6V32l-4 6h-2l-4-6v10h-6Z' fill='%23F5EFEA'/%3E%3C/svg%3E"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260512-glass" />
+    <link rel="stylesheet" href="./styles.css?v=20260513-strategy" />
   </head>
   <body>
     <div class="site-shell cineanchor-page">
@@ -31,8 +31,8 @@
         </a>
         <nav class="nav" aria-label="案例导航">
           <a href="./index.html#projects">项目</a>
+          <a href="#strategy">策略</a>
           <a href="#pipeline">管线</a>
-          <a href="#progress">进展</a>
           <a href="#links">链接</a>
         </nav>
       </header>
@@ -126,6 +126,39 @@
           </div>
         </section>
 
+        <section class="case-strategy section-wrap" id="strategy" aria-labelledby="strategy-title">
+          <div class="section-heading" data-reveal>
+            <p class="eyebrow">Product Strategy</p>
+            <h2 id="strategy-title">从创作者痛点到产品机会</h2>
+          </div>
+          <p class="strategy-lead" data-reveal>
+            CineAnchor 的产品判断不是再做一个视频生成按钮，而是把 AI 视频创作从“反复抽卡”推进到“可设计、可复用、可验证”。
+            基于 AI 视频创作者工作流观察，我将问题定义为：生成质量正在提升，但镜头控制、空间连续性和可复用场景仍是创作瓶颈。
+          </p>
+          <div class="strategy-grid">
+            <article data-reveal>
+              <span>01</span>
+              <h3>需求分析</h3>
+              <p>核心痛点不是画面不够漂亮，而是镜头不可控、空间关系漂移、同一场景难以复用，导致创作者很难稳定复现自己的导演意图。</p>
+            </article>
+            <article data-reveal>
+              <span>02</span>
+              <h3>用户研究</h3>
+              <p>目标用户分为 AI 视频创作者、游戏/动画 Previz 团队和 UGC 社区内容创作者。他们共同需要更低试错成本和更清晰的镜头设计流程。</p>
+            </article>
+            <article data-reveal>
+              <span>03</span>
+              <h3>竞品分析</h3>
+              <p>Runway、Pika、Kling 等工具正在增强 camera control、storyboard 和 motion effect，但多数仍以生成结果为中心。CineAnchor 选择从创作前置结构入手。</p>
+            </article>
+            <article data-reveal>
+              <span>04</span>
+              <h3>数据驱动决策</h3>
+              <p>我会用可观测指标判断它是不是一个产品，而不只是一个 demo：镜头轨迹还原度、深度图稳定性、重生成次数和完成一段可控镜头所需时间。</p>
+            </article>
+          </div>
+        </section>
+
         <section class="case-pipeline section-wrap" id="pipeline" aria-labelledby="pipeline-title">
           <div class="section-heading" data-reveal>
             <p class="eyebrow">Pipeline</p>
@@ -188,21 +221,25 @@
 
         <section class="case-role section-wrap" aria-labelledby="role-title">
           <div class="section-heading" data-reveal>
-            <p class="eyebrow">Technical Role</p>
+            <p class="eyebrow">Product & Technical Role</p>
             <h2 id="role-title">我在这个项目里的工作</h2>
           </div>
           <div class="role-list" data-reveal>
             <article>
-              <strong>产品拆解</strong>
-              <p>把“可控 AI 视频”拆成用户能理解的流程：先搭场景，再设计镜头，最后生成不同风格的视频版本。</p>
+              <strong>痛点识别</strong>
+              <p>从 AI 视频创作者“画面好看但镜头不可控”的反馈出发，把问题收敛为镜头控制、空间连续性和场景复用。</p>
             </article>
             <article>
-              <strong>工程实现</strong>
-              <p>使用 FastAPI、PyTorch、Three.js 和 gsplat 组织前后端管线，把产品概念落成可运行的 MVP。</p>
+              <strong>MVP 路线</strong>
+              <p>先验证取景器、相机轨迹和深度图链路，再推进真实 3DGS 与 ControlNet-Depth 闭环，降低早期试错成本。</p>
             </article>
             <article>
-              <strong>AI Workflow</strong>
-              <p>建立从模拟测试到真实 GPU 验证的迭代方式，先保证链路可观察、可替换、可复现，再逐步提高生成质量。</p>
+              <strong>工程落地</strong>
+              <p>使用 FastAPI、PyTorch、Three.js 和 gsplat 组织前后端管线，把产品概念落成可运行、可演示的验证系统。</p>
+            </article>
+            <article>
+              <strong>指标迭代</strong>
+              <p>用轨迹还原、深度稳定性、生成重试次数和完成时间来判断功能优先级，让项目从 demo 走向产品判断。</p>
             </article>
           </div>
         </section>
@@ -251,6 +288,6 @@
       </main>
     </div>
 
-    <script src="./script.js?v=20260512-final"></script>
+    <script src="./script.js?v=20260513-strategy"></script>
   </body>
 </html>

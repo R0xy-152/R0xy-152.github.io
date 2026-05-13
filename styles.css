@@ -2065,6 +2065,71 @@ li + li {
   background: var(--ink-blue);
 }
 
+.case-strategy {
+  padding: 108px 0;
+  color: var(--ink-blue);
+  background:
+    radial-gradient(circle at 88% 14%, rgba(145, 207, 213, 0.28), transparent 30%),
+    linear-gradient(180deg, rgba(245, 239, 234, 0.96), rgba(241, 221, 223, 0.82)),
+    var(--cream);
+}
+
+.case-strategy .section-heading h2,
+.case-strategy .eyebrow {
+  color: var(--deep-blue);
+}
+
+.strategy-lead {
+  max-width: 940px;
+  margin: 28px 0 0;
+  color: var(--ink-blue);
+  font-size: clamp(1.08rem, 1.7vw, 1.36rem);
+  font-weight: 800;
+  line-height: 1.82;
+}
+
+.strategy-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  margin-top: 46px;
+  border: 1px solid rgba(18, 46, 138, 0.14);
+  border-radius: 8px;
+  background: rgba(18, 46, 138, 0.14);
+  box-shadow: 0 28px 80px rgba(17, 48, 86, 0.08);
+}
+
+.strategy-grid article {
+  min-height: 310px;
+  padding: clamp(22px, 3vw, 32px);
+  color: var(--ink-blue);
+  background: rgba(251, 250, 248, 0.9);
+}
+
+.strategy-grid span {
+  display: block;
+  margin-bottom: 38px;
+  color: var(--red);
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.6vw, 3.6rem);
+  font-weight: 900;
+  line-height: 0.86;
+}
+
+.strategy-grid h3 {
+  margin-bottom: 14px;
+  color: var(--deep-blue);
+  font-size: clamp(1.16rem, 1.7vw, 1.48rem);
+}
+
+.strategy-grid p {
+  margin-bottom: 0;
+  color: var(--ink-blue);
+  line-height: 1.76;
+  overflow-wrap: anywhere;
+}
+
 .case-two-column {
   display: grid;
   grid-template-columns: 0.92fr 1.08fr;
@@ -2158,7 +2223,7 @@ li + li {
 
 .role-list {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1px;
   overflow: hidden;
   margin-top: 46px;
@@ -2292,6 +2357,7 @@ li + li {
   .education-panel,
   .case-two-column,
   .project-grid,
+  .strategy-grid,
   .progress-grid,
   .role-list,
   .future-grid,
@@ -2559,6 +2625,7 @@ li + li {
   .profile-band,
   .project-band,
   .case-problem,
+  .case-strategy,
   .case-progress,
   .case-future,
   .case-links,
@@ -2608,6 +2675,7 @@ li + li {
   }
 
   .pipeline-strip article,
+  .strategy-grid article,
   .progress-grid article,
   .future-grid article {
     min-height: auto;
