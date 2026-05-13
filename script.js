@@ -125,12 +125,148 @@ const motionOpening = document.querySelector("[data-motion-opening]");
 const motionCards = [...document.querySelectorAll("[data-motion-card]")];
 const motionVideos = motionCards.map((card) => card.querySelector("video")).filter(Boolean);
 const motionDots = [...document.querySelectorAll("[data-motion-dot]")];
+const cqmOpening = document.querySelector("[data-cqm-opening]");
+const cqmTopbar = document.querySelector("[data-cqm-topbar]");
+const cqmOpeningMark = document.querySelector("[data-cqm-opening-mark]");
+const cqmIntro = document.querySelector("[data-cqm-intro]");
+const cqmName = document.querySelector("[data-cqm-name]");
+const cqmBrandMark = cqmTopbar?.querySelector(".brand-mark");
+const cqmGravityLetters = [...document.querySelectorAll("[data-gravity-letter]")];
+const narrativeBridges = [...document.querySelectorAll("[data-narrative-bridge]")];
 let scrollFrame = 0;
 let hasTriedVideoPlayback = false;
 let hasTriedMotionPlayback = false;
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
+}
+
+function smoothstep(start, end, value) {
+  const progress = clamp((value - start) / Math.max(end - start, 0.0001), 0, 1);
+  return progress * progress * (3 - 2 * progress);
+}
+
+function updateCqmOpening(viewportHeight) {
+  if (!cqmOpening || !cqmTopbar) {
+    return;
+  }
+
+  if (prefersReducedMotion) {
+    cqmTopbar.classList.add("is-cqm-ready");
+    document.documentElement.style.setProperty("--cqm-nav-opacity", "1");
+    document.documentElement.style.setProperty("--cqm-brand-opacity", "1");
+    document.documentElement.style.setProperty("--cqm-brand-scale", "1");
+    document.documentElement.style.setProperty("--cqm-nav-y", "0px");
+    return;
+  }
+
+  const rect = cqmOpening.getBoundingClientRect();
+  const travel = Math.max(cqmOpening.offsetHeight - viewportHeight, 1);
+  const progress = clamp(-rect.top / travel, 0, 1);
+  const introExit = smoothstep(0.2, 0.42, progress);
+  const cqmCenter = smoothstep(0.14, 0.42, progress);
+  const nameExit = smoothstep(0.48, 0.64, progress);
+  const focusIn = smoothstep(0.4, 0.62, progress);
+  const focusOut = smoothstep(0.7, 0.86, progress);
+  const moveProgress = smoothstep(0.66, 0.96, progress);
+  const navProgress = smoothstep(0.82, 0.98, progress);
+  const markIn = smoothstep(0.5, 0.64, progress);
+  const markOut = smoothstep(0.9, 0.99, progress);
+
+  cqmOpening.style.setProperty("--cqm-word-opacity", (1 - markOut).toFixed(4));
+  cqmOpening.style.setProperty("--cqm-word-scale", (1 - focusIn * 0.035).toFixed(4));
+  cqmOpening.style.setProperty("--cqm-word-y", `${(-10 * focusIn).toFixed(2)}px`);
+  cqmOpening.style.setProperty("--cqm-intro-opacity", (1 - introExit).toFixed(4));
+  cqmOpening.style.setProperty("--cqm-intro-blur", `${(introExit * 12).toFixed(2)}px`);
+  cqmOpening.style.setProperty("--cqm-intro-x", `${(-28 * introExit).toFixed(2)}px`);
+  cqmOpening.style.setProperty("--cqm-name-opacity", (1 - nameExit).toFixed(4));
+  cqmOpening.style.setProperty("--cqm-name-blur", `${(nameExit * 8).toFixed(2)}px`);
+  cqmOpening.style.setProperty("--cqm-name-scale", (1 - nameExit * 0.18).toFixed(4));
+  cqmOpening.style.setProperty("--cqm-focus-opacity", (focusIn * (1 - focusOut)).toFixed(4));
+  cqmOpening.style.setProperty("--cqm-focus-scale", (1.08 - focusIn * 0.9 + focusOut * 0.08).toFixed(4));
+
+  if (cqmIntro && cqmName) {
+    const nameGap = Math.max(0, cqmName.offsetLeft - cqmIntro.offsetLeft - cqmIntro.offsetWidth);
+    const centerOffset = -(cqmIntro.offsetWidth + nameGap) / 2;
+    cqmOpening.style.setProperty("--cqm-name-x", `${(centerOffset * cqmCenter).toFixed(2)}px`);
+  }
+
+  if (cqmOpeningMark && cqmBrandMark) {
+    const brandRect = cqmBrandMark.getBoundingClientRect();
+    const targetX = brandRect.left + brandRect.width / 2 - window.innerWidth / 2;
+    const targetY = brandRect.top + brandRect.height / 2 - viewportHeight / 2;
+    const finalScale = brandRect.width / Math.max(cqmOpeningMark.offsetWidth, 1);
+    const markScale = 0.86 + (finalScale - 0.86) * moveProgress;
+
+    cqmOpening.style.setProperty("--cqm-mark-x", `${(targetX * moveProgress).toFixed(2)}px`);
+    cqmOpening.style.setProperty("--cqm-mark-y", `${(targetY * moveProgress).toFixed(2)}px`);
+    cqmOpening.style.setProperty("--cqm-mark-scale", markScale.toFixed(4));
+    cqmOpening.style.setProperty("--cqm-mark-opacity", (markIn * (1 - markOut)).toFixed(4));
+  }
+
+  document.documentElement.style.setProperty("--cqm-nav-opacity", navProgress.toFixed(4));
+  document.documentElement.style.setProperty("--cqm-nav-y", `${((-18 + navProgress * 18)).toFixed(2)}px`);
+  document.documentElement.style.setProperty("--cqm-brand-opacity", navProgress.toFixed(4));
+  document.documentElement.style.setProperty("--cqm-brand-scale", (0.72 + navProgress * 0.28).toFixed(4));
+  cqmTopbar.classList.toggle("is-cqm-ready", navProgress > 0.86);
+}
+
+function updateNarrativeBridges(viewportHeight) {
+  narrativeBridges.forEach((bridge) => {
+    const rect = bridge.getBoundingClientRect();
+    const progress = clamp((viewportHeight - rect.top) / (viewportHeight + rect.height), 0, 1);
+    const enter = smoothstep(0.12, 0.44, progress);
+    const exit = smoothstep(0.72, 0.96, progress);
+
+    bridge.style.setProperty("--bridge-progress", progress.toFixed(4));
+    bridge.style.setProperty("--bridge-enter", enter.toFixed(4));
+    bridge.style.setProperty("--bridge-exit", exit.toFixed(4));
+    bridge.style.setProperty("--bridge-ring-opacity", (0.18 + progress * 0.48).toFixed(4));
+    bridge.style.setProperty("--bridge-ring-scale", (0.68 + progress * 0.5).toFixed(4));
+    bridge.style.setProperty("--bridge-ring-rotate", `${(progress * 28).toFixed(2)}deg`);
+    bridge.style.setProperty("--bridge-line-opacity", (0.28 + enter * 0.36).toFixed(4));
+    bridge.style.setProperty("--bridge-line-rotate", `${(-12 + progress * 28).toFixed(2)}deg`);
+    bridge.style.setProperty("--bridge-iris-opacity", (0.18 + enter * 0.5).toFixed(4));
+    bridge.style.setProperty("--bridge-iris-scale", (0.38 + progress * 1.7).toFixed(4));
+    bridge.style.setProperty("--bridge-blur", `${(exit * 4).toFixed(2)}px`);
+    bridge.style.setProperty("--bridge-copy-opacity", (0.18 + enter * 0.82 - exit * 0.44).toFixed(4));
+    bridge.style.setProperty("--bridge-copy-y", `${(34 - progress * 54).toFixed(2)}px`);
+    bridge.style.setProperty("--bridge-copy-scale", (0.94 + enter * 0.06).toFixed(4));
+    bridge.style.setProperty("--bridge-orbit-opacity", (0.2 + enter * 0.52 - exit * 0.35).toFixed(4));
+    bridge.style.setProperty("--bridge-orbit-rotate", `${(progress * 72).toFixed(2)}deg`);
+    bridge.style.setProperty("--bridge-counter-rotate", `${(-progress * 72).toFixed(2)}deg`);
+  });
+}
+
+function resetCqmGravityLetters() {
+  cqmGravityLetters.forEach((letter) => {
+    letter.style.removeProperty("--gx");
+    letter.style.removeProperty("--gy");
+    letter.style.removeProperty("--gr");
+  });
+}
+
+if (cqmOpening && cqmGravityLetters.length > 0 && !prefersReducedMotion) {
+  cqmOpening.addEventListener("pointermove", (event) => {
+    cqmGravityLetters.forEach((letter) => {
+      const rect = letter.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const deltaX = event.clientX - centerX;
+      const deltaY = event.clientY - centerY;
+      const distance = Math.hypot(deltaX, deltaY);
+      const force = clamp(1 - distance / 260, 0, 1);
+      const pullX = deltaX * 0.08 * force;
+      const pullY = deltaY * 0.035 * force + 18 * force * force;
+      const rotate = deltaX * 0.018 * force;
+
+      letter.style.setProperty("--gx", `${pullX.toFixed(2)}px`);
+      letter.style.setProperty("--gy", `${pullY.toFixed(2)}px`);
+      letter.style.setProperty("--gr", `${rotate.toFixed(3)}deg`);
+    });
+  });
+
+  cqmOpening.addEventListener("pointerleave", resetCqmGravityLetters);
 }
 
 function ensureSplitVideoPlayback() {
@@ -221,6 +357,8 @@ function updateScrollDrivenMotion() {
   scrollFrame = 0;
   const viewportHeight = window.innerHeight || 1;
 
+  updateCqmOpening(viewportHeight);
+  updateNarrativeBridges(viewportHeight);
   updateMotionOpening(viewportHeight);
 
   if (splitTransition && splitLeftPanel && splitRightPanel) {
